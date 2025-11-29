@@ -1,0 +1,29 @@
+<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景圆形 -->
+  <circle cx="40" cy="40" r="40" fill="#b8860b"/>
+  
+  <!-- 头部轮廓 -->
+  <circle cx="40" cy="35" r="20" fill="#FFE0B2" stroke="#E65100" stroke-width="1"/>
+  
+  <!-- 头发 -->
+  <path d="M40 15 Q35 10 30 15 Q25 18 25 25 Q25 30 30 35 Q35 40 40 45 Q45 40 50 35 Q55 30 55 25 Q55 18 50 15 Q45 10 40 15" fill="#8D6E63"/>
+  
+  <!-- 眼睛 -->
+  <ellipse cx="33" cy="30" rx="2" ry="3" fill="#1A237E"/>
+  <ellipse cx="47" cy="30" rx="2" ry="3" fill="#1A237E"/>
+  <circle cx="34" cy="29" r="1" fill="white"/>
+  <circle cx="48" cy="29" r="1" fill="white"/>
+  
+  <!-- 眉毛 -->
+  <path d="M30 27 Q33 25 36 27" fill="none" stroke="#8D6E63" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M44 27 Q47 25 50 27" fill="none" stroke="#8D6E63" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- 嘴巴 -->
+  <path d="M34 42 Q40 45 46 42" fill="none" stroke="#E65100" stroke-width="1.5" stroke-linecap="round"/>
+  
+  <!-- 装饰元素 - 豆汁碗 -->
+  <ellipse cx="40" cy="48" rx="10" ry="4" fill="#BCAAA4"/>
+  <ellipse cx="40" cy="50" rx="8" ry="2" fill="#8D6E63"/>
+  <path d="M32 48 L30 52" fill="none" stroke="#BCAAA4" stroke-width="1"/>
+  <path d="M48 48 L50 52" fill="none" stroke="#BCAAA4" stroke-width="1"/>
+</svg>

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发展历程 - 燕云十六声百业组织</title>
+    <meta name="description" content="探索燕云十六声百业组织从宋代至今的发展历程，见证千年工艺传承的历史脉络。">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #1a3b2e;
+            --accent-gold: #b8860b;
+            --bg-cream: #faf8f3;
+            --text-red: #dc143c;
+            --text-dark: #2c2c2c;
+            --text-light: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .font-serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-green);
+        }
+        
+        .text-primary {
+            color: var(--primary-green);
+        }
+        
+        .text-accent {
+            color: var(--accent-gold);
+        }
+        
+        .text-red {
+            color: var(--text-red);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 59, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d5a47 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('./resources/development-timeline.svg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--accent-gold), var(--primary-green));
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 3rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 0;
+            margin-right: 50%;
+            padding-right: 3rem;
+            text-align: right;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: 50%;
+            margin-right: 0;
+            padding-left: 3rem;
+            text-align: left;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            top: 1rem;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-gold);
+            border: 4px solid var(--bg-cream);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-marker:hover {
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 0 20px rgba(184, 134, 11, 0.5);
+        }
+        
+        .timeline-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .timeline-details {
+            display: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        
+        .timeline-details.expanded {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+            to {
+                opacity: 1;
+                max-height: 200px;
+            }
+        }
+        
+        .timeline-achievements {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .timeline-achievements li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .timeline-achievements li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+        
+        .period-overview {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .period-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        .period-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .period-card {
+            background: var(--bg-cream);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .period-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .period-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .period-card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+        
+        .period-card-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .historical-figures {
+            background: var(--primary-green);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .figures-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('./resources/occupations-grid.svg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .figures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .figure-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .figure-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .figure-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .figure-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+        
+        .figure-title {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .figure-contribution {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .timeline::before {
+                left: 2rem;
+            }
+            
+            .timeline-marker {
+                left: 2rem;
+            }
+            
+            .timeline-item:nth-child(odd) .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                margin-left: 4rem;
+                margin-right: 0;
+                padding-left: 2rem;
+                padding-right: 2rem;
+                text-align: left;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo font-serif">燕云 漱月</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="history.html">发展历程</a></li>
+                <li><a href="positions.html">职位介绍</a></li>
+                <li><a href="gallery.html">照片墙</a></li>
+                <li><a href="activities.html">活动预告</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1 class="page-title font-serif">发展历程</h1>
+            <p class="page-subtitle">
+                从游戏开服到现代百业，见证数千名玩家的探索故事
+            </p>
+        </div>
+    </section>
+    
+    <!-- Timeline Section -->
+    <section class="section">
+        <div class="container">
+            <div class="timeline-container">
+                <div class="timeline">
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content" onclick="toggleDetails(this)">
+                            <div class="timeline-year">2025年3月</div>
+                            <h3 class="timeline-title">百业创立</h3>
+                            <p class="timeline-description">
+                                咸鱼当铺建立，休闲百业制度正式确立，元老社员开始加入，形成系统组织。
+                            </p>
+                            <div class="timeline-details">
+                                <ul class="timeline-achievements">
+                                    <li>零星出现百业双十本车队</li>
+                                    <li>百业派对开始每日普及</li>
+                                    <li>设立共创共玩机制</li>
+                                    <li>形成社员互助网络</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content" onclick="toggleDetails(this)">
+                            <div class="timeline-year">2025年6月</div>
+                            <h3 class="timeline-title">百业更名</h3>
+                            <p class="timeline-description">
+                                随着百业社员增加，百业组织在各活动的分工进一步明确，同时进行更名。
+                            </p>
+                            <div class="timeline-details">
+                                <ul class="timeline-achievements">
+                                    <li>百业社员人数大幅增加</li>
+                                    <li>百业更名为 漱月</li>
+                                    <li>双十车队开始普及</li>
+                                    <li>百业繁荣发展</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content" onclick="toggleDetails(this)">
+                            <div class="timeline-year">2025年9月</div>
+                            <h3 class="timeline-title">百业迭代</h3>
+                            <p class="timeline-description">
+                                百业在2025年9月完成迭代，形成更为完善的活动制度和友好氛围。
+                            </p>
+                            <div class="timeline-details">
+                                <ul class="timeline-achievements">
+                                    <li>百业社长与副社长重新任命</li>
+                                    <li>百业等级达到6级</li>
+                                    <li>百业社员满员</li>
+                                    <li>进一步优化百业福利</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-marker"></div> 
+                        <div class="timeline-content" onclick="toggleDetails(this)">
+                            <div class="timeline-year">2025年11月</div>
+                            <h3 class="timeline-title">百业数字化转型</h3>
+                            <p class="timeline-description">
+                                百业组织炉火纯青，活跃社员众多，为百业数字化奠定基础。
+                            </p>
+                            <div class="timeline-details">
+                                <ul class="timeline-achievements">
+                                    <li>麻将人数再创新高</li>
+                                    <li>百业职位重新调整</li>
+                                    <li>核心成员进一步增加</li>
+                                    <li>百业网站开始制作</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item fade-in">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content" onclick="toggleDetails(this)">
+                            <div class="timeline-year">2025年12月起</div>
+                            <h3 class="timeline-title">开元盛世</h3>
+                            <p class="timeline-description">
+                                百业频道有求必应，微信群氛围活跃积极，开始融入更多的社交关系。
+                            </p>
+                            <div class="timeline-details">
+                                <ul class="timeline-achievements">
+                                    <li>百业纳新方法修改</li>
+                                    <li>双十副本精细化100%</li>
+                                    <li>麻将社交进一步发展</li>
+                                    <li>鼓励多边社交</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Historical Periods Overview -->
+    <section class="section" style="background: white;">
+        <div class="container">
+            <h2 class="section-title font-serif fade-in">百业时期概览</h2>
+            <p class="section-subtitle fade-in" style="text-align: center; color: var(--text-light); margin-bottom: 3rem;">
+                深入了解各个百业时期的特色与成就
+            </p>
+            
+            <div class="period-overview fade-in">
+                <h3 class="period-title">咸鱼当铺 (2025年3月-6月)</h3>
+                <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">
+                    百业组织的奠基时期，初步建立了成熟制度和社交活动体系
+                </p>
+                <div class="period-grid">
+                    <div class="period-card">
+                        <div class="period-icon">🏛️</div>
+                        <h4 class="period-card-title">百业制度</h4>
+                        <p class="period-card-desc">围绕百业活动开始发展，制定福利和活跃标准</p>
+                    </div>
+                    <div class="period-card">
+                        <div class="period-icon">🎓</div>
+                        <h4 class="period-card-title">社员传承</h4>
+                        <p class="period-card-desc">鼓励社交互动，确保百业成员的代代相传</p>
+                    </div>
+                    <div class="period-card">
+                        <div class="period-icon">⚖️</div>
+                        <h4 class="period-card-title">活跃监督</h4>
+                        <p class="period-card-desc">确定周活跃底线，保证成员活跃水平</p>
+                    </div>
+                    <div class="period-card">
+                        <div class="period-icon">🤝</div>
+                        <h4 class="period-card-title">互助合作</h4>
+                        <p class="period-card-desc">五人本互助机制，共同应对困难</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="period-overview fade-in">
+                <h3 class="period-title">漱月 (2025年6月至今)</h3>
+                <p style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">
+                    百业组织的繁荣发展期，社员活跃达到历史巅峰
+                </p>
+                <div class="period-grid">
+                    <div class="period-card">
+                        <div class="period-icon">🎨</div>
+                        <h4 class="period-card-title">活跃巅峰</h4>
+                        <p class="period-card-desc">周活跃达到历史最高水平，社员活跃不断提升</p>
+                    </div>
+                    <div class="period-card">
+                        <div class="period-icon">🌏</div>
+                        <h4 class="period-card-title">数字化档案</h4>
+                        <p class="period-card-desc">通过数字化技术，记录和管理百业活动的所有相关信息</p>
+                    </div>
+                    <div class="period-card">
+                        <div class="period-icon">📚</div>
+                        <h4 class="period-card-title">社交融合</h4>
+                        <p class="period-card-desc">吸收在外社交关系，丰富百业成员的社交圈</p>
+                    </div>
+                    <div class="period-card">
+                        <div class="period-icon">🏮</div>
+                        <h4 class="period-card-title">麻将发展</h4>
+                        <p class="period-card-desc">与麻友文化深度融合，影响深远</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Historical Figures -->
+    <section class="section historical-figures">
+        <div class="figures-bg"></div>
+        <div class="container">
+            <h2 class="section-title font-serif fade-in" style="color: white; text-align: center; margin-bottom: 3rem;">
+                历代杰出人物
+            </h2>
+            
+            <div class="figures-grid">
+                <div class="figure-card fade-in">
+                    <img src="./resources/avatar-lingjiyue.svg" alt="凌霁月" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">凌霁月</h3>
+                    <p class="figure-title">百业社长</p>
+                    <p class="figure-contribution">
+                        最可爱的人，为百业鞠躬尽瘁
+                    </p>
+                </div>
+                
+                <div class="figure-card fade-in">
+                    <img src="./resources/avatar-zhuxingyuan.svg" alt="诸星渊" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">诸星渊</h3>
+                    <p class="figure-title">百业副社长</p>
+                    <p class="figure-contribution">
+                        摸鱼的神，百业第一老男人
+                    </p>
+                </div>
+                
+                <div class="figure-card fade-in">
+                    <img src="./resources/avatar-banzanshi.svg" alt="半盏诗" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">半盏诗</h3>
+                    <p class="figure-title">西施</p>
+                    <p class="figure-contribution">
+                        半姐会给每个人一个家~
+                    </p>
+                </div>
+
+                 <div class="figure-card fade-in">
+                    <img src="./resources/avatar-shuixilan.svg" alt="水溪岚" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">水溪岚</h3>
+                    <p class="figure-title">百业元老</p>
+                    <p class="figure-contribution">
+                        初代社员之一，因学业繁忙上线频率较低
+                    </p>
+                </div>
+
+                <div class="figure-card fade-in">
+                    <img src="./resources/avatar-yaotangling.svg" alt="姚叹凌" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">姚叹凌</h3>
+                    <p class="figure-title">百业摄像机</p>
+                    <p class="figure-contribution">
+                        工作狂魔，不定时出现随机拍照
+                    </p>
+                </div>
+
+                <div class="figure-card fade-in">
+                    <img src="./resources/avatar-riluohenmei.svg" alt="日落很美" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">日落很美</h3>
+                    <p class="figure-title">初代黑工</p>
+                    <p class="figure-contribution">
+                        百业初期活跃管理，因工作半隐退
+                    </p>
+                </div>
+                
+                <div class="figure-card fade-in">
+                    <img src="./resources/avatar-douzhi.svg" alt="你爱喝豆汁吗" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">你爱喝豆汁吗</h3> 
+                    <p class="figure-title">初代黑工</p>
+                    <p class="figure-contribution">
+                        百业初代大输出，经常出没于各大百叶本，因各种因素半隐退
+                    </p>
+                </div>
+                
+                <div class="figure-card fade-in">
+                    <img src="./resources/avatar-xiaolinqin.svg" alt="小林擒" class="figure-avatar" style="width: 80px; height: 80px; object-fit: cover; border-radius: 50%;"/>
+                    <h3 class="figure-name">小林擒</h3>
+                    <p class="figure-title">初代指挥</p>
+                    <p class="figure-contribution">
+                        与诸星渊并列为百业初代指挥官，后因各种原因半隐退
+                    
+                    </p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--primary-green); color: white; padding: 3rem 0 2rem; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1rem;">燕云十六声 漱月</div>
+            <p style="max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; opacity: 0.9;">
+                为百业发展注入互联网的精髓，
+                让每个人都可以克服社恐，找到自己最好的伙伴。
+            </p>
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 2rem; margin-top: 2rem; opacity: 0.7;">
+                <p>&copy; 2025 燕云十六声 漱月. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Toggle timeline details
+        function toggleDetails(element) {
+            const details = element.querySelector('.timeline-details');
+            details.classList.toggle('expanded');
+        }
+        
+        // Scroll animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-in, .timeline-item').forEach(el => {
+                observer.observe(el);
+            });
+        }
+        
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initScrollAnimations();
+        });
+    </script>
+</body>
+</html>

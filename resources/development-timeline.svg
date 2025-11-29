@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <!-- 背景渐变 -->
+  <defs>
+    <linearGradient id="timelineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1a3a2e;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#2d5a47;stop-opacity:0.9" />
+      <stop offset="100%" style="stop-color:#1a3a2e;stop-opacity:0.9" />
+    </linearGradient>
+    
+    <!-- 传统纹理 -->
+    <pattern id="paperTexture" patternUnits="userSpaceOnUse" width="100" height="100">
+      <path d="M0,10 Q50,-10 100,10 T200,10" stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none"/>
+      <path d="M0,30 Q50,10 100,30 T200,30" stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none"/>
+      <path d="M0,50 Q50,30 100,50 T200,50" stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none"/>
+      <path d="M0,70 Q50,50 100,70 T200,70" stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none"/>
+      <path d="M0,90 Q50,70 100,90 T200,90" stroke="rgba(255,255,255,0.05)" stroke-width="1" fill="none"/>
+    </pattern>
+  </defs>
+  
+  <!-- 主背景 -->
+  <rect width="100%" height="100%" fill="url(#timelineGradient)"/>
+  <rect width="100%" height="100%" fill="url(#paperTexture)" opacity="0.5"/>
+  
+  <!-- 中央时间线 -->
+  <line x1="600" y1="100" x2="600" y2="700" stroke="#d4a76a" stroke-width="4" opacity="0.3"/>
+  
+  <!-- 时间节点 -->
+  <g opacity="0.4">
+    <!-- 左侧时间点 -->
+    <circle cx="600" cy="200" r="15" fill="#8b4513"/>
+    <circle cx="600" cy="350" r="15" fill="#8b4513"/>
+    <circle cx="600" cy="500" r="15" fill="#8b4513"/>
+    <circle cx="600" cy="650" r="15" fill="#8b4513"/>
+    
+    <!-- 右侧时间点 -->
+    <circle cx="600" cy="150" r="10" fill="#d4a76a"/>
+    <circle cx="600" cy="300" r="10" fill="#d4a76a"/>
+    <circle cx="600" cy="450" r="10" fill="#d4a76a"/>
+    <circle cx="600" cy="600" r="10" fill="#d4a76a"/>
+  </g>
+  
+  <!-- 装饰性卷轴元素 -->
+  <g opacity="0.2" transform="translate(300,150)">
+    <rect x="0" y="0" width="200" height="100" rx="5" ry="5" fill="#d4a76a"/>
+    <path d="M10,10 L190,10 L190,90 L10,90 Z" fill="none" stroke="#8b4513" stroke-width="2"/>
+  </g>
+  
+  <g opacity="0.2" transform="translate(700,300)">
+    <rect x="0" y="0" width="200" height="100" rx="5" ry="5" fill="#d4a76a"/>
+    <path d="M10,10 L190,10 L190,90 L10,90 Z" fill="none" stroke="#8b4513" stroke-width="2"/>
+  </g>
+  
+  <g opacity="0.2" transform="translate(300,450)">
+    <rect x="0" y="0" width="200" height="100" rx="5" ry="5" fill="#d4a76a"/>
+    <path d="M10,10 L190,10 L190,90 L10,90 Z" fill="none" stroke="#8b4513" stroke-width="2"/>
+  </g>
+  
+  <!-- 传统花纹 -->
+  <g opacity="0.1" transform="translate(100,100) scale(0.5)">
+    <path d="M0,0 C50,100 150,100 200,0 C250,100 350,100 400,0 C450,100 550,100 600,0 C650,100 750,100 800,0 C850,100 950,100 1000,0" stroke="#ffffff" stroke-width="5" fill="none"/>
+    <path d="M0,50 C50,150 150,150 200,50 C250,150 350,150 400,50 C450,150 550,150 600,50 C650,150 750,150 800,50 C850,150 950,150 1000,50" stroke="#ffffff" stroke-width="3" fill="none"/>
+  </g>
+  
+  <g opacity="0.1" transform="translate(100,600) scale(0.5)">
+    <path d="M0,0 C50,100 150,100 200,0 C250,100 350,100 400,0 C450,100 550,100 600,0 C650,100 750,100 800,0 C850,100 950,100 1000,0" stroke="#ffffff" stroke-width="5" fill="none"/>
+  </g>
+  
+  <!-- 装饰性图标 -->
+  <g opacity="0.1" transform="translate(400,200) scale(0.3)">
+    <rect x="0" y="0" width="200" height="100" fill="none" stroke="#ffffff" stroke-width="5"/>
+    <line x1="0" y1="20" x2="200" y2="20" stroke="#ffffff" stroke-width="3"/>
+    <line x1="50" y1="40" x2="150" y2="40" stroke="#ffffff" stroke-width="2"/>
+    <line x1="50" y1="60" x2="120" y2="60" stroke="#ffffff" stroke-width="2"/>
+  </g>
+  
+  <g opacity="0.1" transform="translate(800,350) scale(0.3)">
+    <rect x="0" y="0" width="200" height="100" fill="none" stroke="#ffffff" stroke-width="5"/>
+    <line x1="0" y1="20" x2="200" y2="20" stroke="#ffffff" stroke-width="3"/>
+    <line x1="50" y1="40" x2="150" y2="40" stroke="#ffffff" stroke-width="2"/>
+    <line x1="50" y1="60" x2="120" y2="60" stroke="#ffffff" stroke-width="2"/>
+  </g>
+</svg>

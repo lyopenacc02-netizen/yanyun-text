@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>燕云十六声 漱月 - 一样的游戏,不一样的玩艺</title>
+    <meta name="description" content="燕云十六声百业组织致力于传承和发扬中国传统工艺文化，连接古代智慧与现代创新，为各行各业提供交流合作的平台。">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/7.3.2/pixi.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    
+    <style>
+        :root {
+            --primary-green: #1a3b2e;
+            --accent-gold: #b8860b;
+            --bg-cream: #faf8f3;
+            --text-red: #dc143c;
+            --text-dark: #2c2c2c;
+            --text-light: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .font-serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-green);
+        }
+        
+        .text-primary {
+            color: var(--primary-green);
+        }
+        
+        .text-accent {
+            color: var(--accent-gold);
+        }
+        
+        .text-red {
+            color: var(--text-red);
+        }
+        
+        .hero-section {
+            position: relative;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d5a47 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('./resources/hero-guild-hall.svg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            color: white;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .hero-description {
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            line-height: 1.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--accent-gold);
+            color: var(--primary-green);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .cta-button:hover {
+            background: #9a7209;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(184, 134, 11, 0.3);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 59, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            text-align: center;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--text-red));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+        
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .stats-section {
+            background: var(--primary-green);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stats-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('./resources/development-timeline.svg');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .news-section {
+            background: white;
+        }
+        
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .news-card {
+            background: var(--bg-cream);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .news-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .news-content {
+            padding: 1.5rem;
+        }
+        
+        .news-date {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+        
+        .news-excerpt {
+            color: var(--text-light);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+        
+        .read-more {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s ease;
+        }
+        
+        .read-more:hover {
+            gap: 1rem;
+        }
+        
+        .footer {
+            background: var(--primary-green);
+            color: white;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-description {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(184, 134, 11, 0.2);
+            z-index: 1001;
+        }
+        
+        .scroll-progress {
+            height: 100%;
+            background: var(--accent-gold);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .particles-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-progress" id="scrollProgress"></div>
+    </div>
+    
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo font-serif">燕云 漱月</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="history.html">发展历程</a></li>
+                <li><a href="positions.html">职位介绍</a></li>
+                <li><a href="gallery.html">照片墙</a></li>
+                <li><a href="activities.html">活动预告</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg"></div>
+        <div class="particles-container" id="particles"></div>
+        <div class="hero-content">
+            <h1 class="hero-title font-serif">燕云十六声 漱月</h1>
+            <p class="hero-subtitle">一样的游戏，不一样的玩艺</p>
+            <p class="hero-description">
+                燕云十六声 漱月自游戏开服以来，历经百余天传承发展，现汇聚天下豪杰。
+                我们致力于融合新玩家/小白/大佬/牌友/搭子，搭建新老玩家的交流平台，
+                为所有热爱第九艺术的人打造一个大家业，将游戏的阶段性无趣转化为大家共襄盛举的快乐。
+            </p>
+            <a href="history.html" class="cta-button">探索发展历程</a>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title font-serif fade-in">组织特色</h2>
+            <p class="section-subtitle fade-in">
+                四大核心模块，全面展现漱月的组织文化
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card fade-in" onclick="window.location.href='history.html'">
+                    <div class="feature-icon">📜</div>
+                    <h3 class="feature-title">发展历程</h3>
+                    <p class="feature-description">
+                        活灵活现的宋代大家庭，百余天的温暖共建奠定了基调。
+                        我们通过百叶活动、绿泡泡社群和志趣相投，弥补这个时代的孤岛与冷漠，
+                        让游戏中的友情更加活灵活现。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in" onclick="window.location.href='positions.html'">
+                    <div class="feature-icon">👥</div>
+                    <h3 class="feature-title">职位介绍</h3>
+                    <p class="feature-description">
+                        详细介绍各职位的职责范围、技能标准、入行要求路径。
+                        通过社交传承模式助力百业欣欣向荣。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in" onclick="window.location.href='gallery.html'">
+                    <div class="feature-icon">🖼️</div>
+                    <h3 class="feature-title">照片墙</h3>
+                    <p class="feature-description">
+                        超过200张高清照片，真实记录每位社员的美好游玩瞬间。
+                        帮助大家分享百业的乐趣，
+                        让您直观感受百业的蓬勃活力。
+                    </p>
+                </div>
+                
+                <div class="feature-card fade-in" onclick="window.location.href='activities.html'">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">活动预告</h3>
+                    <p class="feature-description">
+                        及时发布百业本车队、百叶派对、破军杀将等活动信息。
+                        为社员提供丰富的交流游玩机会，促进百业传承和发展。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="stats-bg"></div>
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <div class="stat-number" data-count="100">0</div>
+                    <div class="stat-label">现有社员</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number" data-count="15">0</div>
+                    <div class="stat-label">百业栋梁</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number" data-count="50">0</div>
+                    <div class="stat-label">月举办活动</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number" data-count="3">0</div>
+                    <div class="stat-label">平均造诣</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- News Section -->
+    <section class="section news-section">
+        <div class="container">
+            <h2 class="section-title font-serif fade-in">最新动态</h2>
+            <p class="section-subtitle fade-in">
+                了解百业组织的最新活动、重要通知和游戏资讯
+            </p>
+            
+            <div class="news-grid">
+                <article class="news-card fade-in">
+                    <img src="./resources/activities-gallery.svg" alt="传统工艺展示活动" class="news-image">
+                    <div class="news-content">
+                        <div class="news-date">2025年-2026年</div>
+                        <h3 class="news-title">百业新秀成长计划</h3>
+                        <p class="news-excerpt">
+                            为了帮助新人快速融入百业大家庭，组织成立了「百业新秀成长计划」。
+                            计划包括老带新的所有活动，每个阶段都有具体的社交活动。
+                            计划开始于2025年初，持续1年。
+                        </p>
+                        <a href="#" class="read-more">了解更多 →</a>
+                    </div>
+                </article>
+                
+                <article class="news-card fade-in">
+                    <img src="./resources/occupations-grid.svg" alt="新会员培训计划" class="news-image">
+                    <div class="news-content">
+                        <div class="news-date">2025年11月1日起</div>
+                        <h3 class="news-title">百业驻地“我不是雀神“计划</h3>
+                        <p class="news-excerpt">
+                            为进一步促进积极的互动氛围，漱月正式启动2025年“我不是雀神“计划。
+                            本次活动面向全体社员，每天晚上九点开始在百业驻地进行，
+                            提供麻将教学、缺人拼桌、打牌聊天等全方位鼓励。无限期活动欢迎大家参与。
+                        </p>
+                        <a href="#" class="read-more">了解更多 →</a>
+                    </div>
+                </article>
+                
+                <article class="news-card fade-in">
+                    <img src="./resources/calendar-activities.svg" alt="数字化档案项目" class="news-image">
+                    <div class="news-content">
+                        <div class="news-date">2025年-2026年</div>
+                        <h3 class="news-title">五人本百业组队激励</h3>
+                        <p class="news-excerpt">
+                            没啥特别的，就是鼓励大家多多组队，啥熟不熟的乐呵乐呵得了~
+                        </p>
+                        <a href="#" class="read-more">了解更多 →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo font-serif">燕云十六声 漱月</div>
+            <p class="footer-description">
+                为百业发展注入互联网的精髓，
+                让每个人都可以克服社恐，找到自己最好的伙伴。
+            </p>
+            <div class="footer-bottom">
+                <p>&copy; 2025 燕云十六声 漱月. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="main.js"></script>
+</body>
+</html>

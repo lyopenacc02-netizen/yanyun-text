@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职位介绍 - 燕云十六声百业组织</title>
+    <meta name="description" content="详细介绍各行业职位的职责要求、技能标准和技术路径，涵盖传统三十六行到现代新兴职业。">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-green: #1a3b2e;
+            --accent-gold: #b8860b;
+            --bg-cream: #faf8f3;
+            --text-red: #dc143c;
+            --text-dark: #2c2c2c;
+            --text-light: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .font-serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-green);
+        }
+        
+        .text-primary {
+            color: var(--primary-green);
+        }
+        
+        .text-accent {
+            color: var(--accent-gold);
+        }
+        
+        .text-red {
+            color: var(--text-red);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 59, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d5a47 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('./resources/occupations-grid.svg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .positions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .position-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .position-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-gold), var(--text-red));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .position-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .position-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .position-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .position-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .position-info {
+            flex: 1;
+        }
+        
+        .position-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 0.25rem;
+        }
+        
+        .position-category {
+            font-size: 0.9rem;
+            color: var(--accent-gold);
+            font-weight: 500;
+        }
+        
+        .position-level {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .position-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .position-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .skill-tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(184, 134, 11, 0.1);
+            color: var(--accent-gold);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 2rem;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: var(--primary-green);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .detail-section {
+            margin-bottom: 2rem;
+        }
+        
+        .detail-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .detail-content {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .detail-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .detail-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .detail-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+            font-weight: bold;
+        }
+        
+        .skill-tree {
+            background: var(--bg-cream);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .skill-level {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .skill-level-title {
+            font-weight: 500;
+            color: var(--primary-green);
+            min-width: 80px;
+        }
+        
+        .skill-level-bar {
+            flex: 1;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .skill-level-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-gold), var(--text-red));
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+        
+        .representative-figures {
+            background: var(--primary-green);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .figures-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('./resources/occupations-grid.png');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .figures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .figure-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .figure-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .figure-avatar {
+            width: 80px;
+            height: 80px;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .figure-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+        
+        .figure-title {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .figure-story {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .positions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .modal-content {
+                margin: 1rem;
+                max-height: 95vh;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo font-serif">燕云 漱月</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="history.html">发展历程</a></li>
+                <li><a href="positions.html">职位介绍</a></li>
+                <li><a href="gallery.html">照片墙</a></li>
+                <li><a href="activities.html">活动预告</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1 class="page-title font-serif">职位介绍</h1>
+            <p class="page-subtitle">
+                深入了解各职位的职责要求和担当标准
+            </p>
+        </div>
+    </section>
+    
+    <!-- Positions Section -->
+    <section class="section">
+        <div class="container">
+            <!-- Positions Grid -->
+            <div class="positions-grid" id="positionsGrid">
+                <!-- Position cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Representative Figures Section -->
+    <section class="section representative-figures">
+        <div class="figures-bg"></div>
+        <div class="container">
+            <h2 class="section-title font-serif fade-in" style="color: white; text-align: center; margin-bottom: 3rem;">
+                各行业杰出代表
+            </h2>
+            
+            <div class="figures-grid">
+                <div class="figure-card fade-in">
+                    <div class="figure-avatar">🔨</div>
+                    <h3 class="figure-name">李春</h3>
+                    <p class="figure-title">隋朝建筑大师</p>
+                    <p class="figure-story">
+                        设计建造了赵州桥，被判为"天下第一桥"，其建筑技术和美学设计影响了中国桥梁建筑数千年，
+                        被尊为建筑行业的典范人物。
+                    </p>
+                </div>
+                
+                <div class="figure-card fade-in">
+                    <div class="figure-avatar">🍵</div>
+                    <h3 class="figure-name">陆羽</h3>
+                    <p class="figure-title">茶圣</p>
+                    <p class="figure-story">
+                        唐代茶学家，著有《茶经》，被判为"茶圣"，其茶文化理论和品茶技艺cdfa基础，
+                        影响深远。
+                    </p>
+                </div>
+                
+                <div class="figure-card fade-in">
+                    <div class="figure-avatar">⚕️</div>
+                    <h3 class="figure-name">华佗</h3>
+                    <p class="figure-title">外科鼻祖</p>
+                    <p class="figure-story">
+                        东汉著名医学家，被判为"外科鼻祖"，发明了麻沸散，创造了五禽戏，
+                        其医学成就和医德风范为后世医者树立了榜样。
+                    </p>
+                </div>
+                
+                <div class="figure-card fade-in">
+                    <div class="figure-avatar">🎨</div>
+                    <h3 class="figure-name">吴道子</h3>
+                    <p class="figure-title">画圣</p>
+                    <p class="figure-story">
+                        唐代著名画家，被判为"画圣"，其绘画技艺精湛，创造了"吴带当风"的艺术风格，
+                        为后世绘画艺术发展做出重要贡献。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Position Detail Modal -->
+    <div class="modal" id="positionModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2 id="modalTitle">职位详情</h2>
+                <p id="modalCategory" style="opacity: 0.8; margin-top: 0.5rem;"></p>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be dynamically generated -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--primary-green); color: white; padding: 3rem 0 2rem; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1rem;">燕云十六声 漱月</div>
+            <p style="max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; opacity: 0.9;">
+                为百业发展注入互联网的精髓，
+                让每个人都可以克服社恐，找到自己最好的伙伴。
+            </p>
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 2rem; margin-top: 2rem; opacity: 0.7;">
+                <p>&copy; 2025 燕云十六声 漱月. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Position data
+        const positionsData = [
+            {
+                id: 1,
+                title: "社长",
+                category: "leadership",
+                level: "senior",
+                description: "负责组织整体发展战略规划和重大决策，统筹协调每周活动。",
+                icon: "👑",
+                skills: ["领导力", "战略规划", "决策能力", "沟通协调"],
+
+                responsibilities: [
+                    "制定百业组织架构和阶段计划",
+                    "主持召开重要会议和决策过程",
+                    "代表百业对外开展交流合作",
+                    "监督百业制度和各项规定执行"
+                ],
+                requirements: [
+                    "具备丰富的组织管理经验",
+                    "拥有卓越的领导能力和决策水平",
+                    "具有广泛的游戏人脉和资源",
+                    "良好的沟通协调和团队建设能力"
+                ],
+                careerPath: [
+                    "无特殊情况，社长为非流动职位"
+                ],
+                developmentProspects: "无退游倾向则可始终担任"
+            },
+            {
+                id: 2,
+                title: "副社长",
+                category: "leadership",
+                level: "senior",
+                description: "协助社长开展工作，分管特定领域，在社长授权下代为处理相关事务。",
+                icon: "🤝",
+                skills: ["执行能力", "团队管理", "问题解决", "项目协调"],
+                responsibilities: [
+                    "协助社长制定和实施百业战略",
+                    "分管特定业务领域",
+                    "定期向社长汇报工作进展",
+                    "在社长授权下处理紧急事务"
+                ],
+                requirements: [
+                    "具备部门管理或项目管理经验",
+                    "拥有较强的执行能力和团队协作精神",
+                    "能够独立处理复杂问题和突发情况",
+                    "良好的沟通表达和组织协调能力"
+                ],
+                careerPath: [
+                    "无特殊情况，副社长为非流动职位"
+                ],
+                developmentProspects: "可与社长沟通调职"
+            },
+            {
+                id: 3,
+                title: "摄像机",
+                category: "media",
+                level: "specialized",
+                description: "负责社员活动的摄影摄像工作，记录重要瞬间，制作宣传素材。",
+                icon: "📹",
+                skills: ["摄影摄像", "后期制作", "视觉创意"],
+                responsibilities: [
+                    "负责活动现场的拍摄工作",
+                    "进行照片和视频的后期处理",
+                    "制作宣传视频和图文素材",
+                ],
+                requirements: [
+                    "具备专业的摄影摄像技能",
+                    "熟悉后期制作软件和流程",
+                    "拥有良好的审美能力和创意思维",
+                    "能够熟练操作燕云特色相机模式"
+                ],
+                careerPath: [
+                    "作品过审即可担任"
+                ],
+                developmentProspects: "属于专业技术职位，鼓励互相交流经验精进技术"
+            },
+            {
+                id: 4,
+                title: "劳模",
+                category: "operation",
+                level: "specialized",
+                description: "在组织各项工作中表现突出，起到模范带头作用，积极参与各类活动。",
+                icon: "🏆",
+                skills: ["积极主动", "责任心强", "团队协作", "执行力强"],
+                responsibilities: [
+                    "积极参与组织各项活动",
+                    "在组织中发挥模范带头作用",
+                    "协助其他成员完成试炼",
+                    "为新手社员提供帮助和温暖"
+                ],
+                requirements: [
+                    "对组织工作充满热情和责任感",
+                    "在过去工作中表现优异",
+                    "具有团队精神和协作意识",
+                    "能够积极主动完成各项任务"
+                ],
+                careerPath: [
+                    "每月评选一次，由现有劳模集体商议决定"
+                ],
+                developmentProspects: "可优先其他职位发展"
+            },
+            {
+                id: 5,
+                title: "指挥官",
+                category: "management",
+                level: "specialized",
+                description: "负责百业战的现场指挥和协调，帮助大家体验玩法。",
+                icon: "🎯",
+                skills: ["现场指挥", "应急处理", "团队协调", "计划执行"],
+                responsibilities: [
+                    "负责百业战的人员调配和指挥",
+                    "处理百业战中的突发情况和问题",
+                    "努力使百业战获得胜利"
+                ],
+                requirements: [
+                    "具备活动策划和执行经验",
+                    "拥有良好的现场指挥和应变能力",
+                    "能够在压力下保持冷静和清晰思路",
+                    "良好的沟通协调和团队管理能力"
+                ],
+                careerPath: [
+                    "与社长副社长沟通胜任，负责百业战的现场指挥和协调"
+                ],
+                developmentProspects: "可优先其他职位发展"
+            }
+        ];
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderPositions();
+            initScrollAnimations();
+        });
+        
+        // Render positions
+        function renderPositions(filteredData = positionsData) {
+            const grid = document.getElementById('positionsGrid');
+            grid.innerHTML = '';
+            
+            filteredData.forEach(position => {
+                const card = createPositionCard(position);
+                grid.appendChild(card);
+            });
+        }
+        
+        // Create position card
+        function createPositionCard(position) {
+            const card = document.createElement('div');
+            card.className = 'position-card fade-in';
+            card.onclick = () => showPositionDetail(position);
+            
+            const levelText = {
+                'senior': '高级',
+                'specialized': '专业',
+                'intermediate': '中级',
+                'junior': '初级'
+            };
+            
+            card.innerHTML = `
+                <div class="position-header">
+                    <div class="position-icon">${position.icon}</div>
+                    <div class="position-info">
+                        <h3 class="position-title">${position.title}</h3>
+                        <p class="position-category">${getCategoryName(position.category)}</p>
+                    </div>
+                    <span class="position-level">${levelText[position.level] || position.level}</span>
+                </div>
+                <p class="position-description">${position.description}</p>
+                <div class="position-skills">
+                    ${position.skills.slice(0, 3).map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+                    ${position.skills.length > 3 ? `<span class="skill-tag">+${position.skills.length - 3}</span>` : ''}
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Get category name
+        function getCategoryName(category) {
+            const categories = {
+                'leadership': '领导层',
+                'management': '管理层',
+                'media': '媒体组',
+                'operation': '运营组'
+            };
+            return categories[category] || category;
+        }
+        
+        // Show position detail
+        function showPositionDetail(position) {
+            const modal = document.getElementById('positionModal');
+            const title = document.getElementById('modalTitle');
+            const category = document.getElementById('modalCategory');
+            const body = document.getElementById('modalBody');
+            
+            title.textContent = position.title;
+            category.textContent = getCategoryName(position.category);
+            
+            body.innerHTML = `
+                <div class="detail-section">
+                    <h3 class="detail-title">📝 职位描述</h3>
+                    <div class="detail-content">${position.description}</div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-title">💼 主要职责</h3>
+                    <ul class="detail-list">
+                        ${position.responsibilities.map(resp => `<li>${resp}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-title">📋 任职要求</h3>
+                    <ul class="detail-list">
+                        ${position.requirements.map(req => `<li>${req}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-title">🎯 技能要求</h3>
+                    <div class="skill-tree">
+                        ${position.skills.map(skill => `
+                            <div class="skill-level">
+                                <span class="skill-level-title">${skill}</span>
+                                <div class="skill-level-bar">
+                                    <div class="skill-level-fill" style="width: ${Math.random() * 40 + 60}%"></div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-title">📈 发展路径</h3>
+                    <div class="detail-content">${position.careerPath}</div>
+                </div>
+                
+                <div class="detail-section">
+                    <h3 class="detail-title">🎯 发展前景</h3>
+                    <div class="detail-content">${position.developmentProspects}</div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('positionModal');
+            modal.classList.remove('active');
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('positionModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Scroll animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>

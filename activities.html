@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动预告 - 燕云十六声百业组织</title>
+    <meta name="description" content="及时发布各类技能培训、文化交流、行业聚会等活动信息，为会员提供丰富的学习和交流机会。">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-green: #1a3b2e;
+            --accent-gold: #b8860b;
+            --bg-cream: #faf8f3;
+            --text-red: #dc143c;
+            --text-dark: #2c2c2c;
+            --text-light: #6b7280;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .font-serif {
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-green);
+        }
+        
+        .text-primary {
+            color: var(--primary-green);
+        }
+        
+        .text-accent {
+            color: var(--accent-gold);
+        }
+        
+        .text-red {
+            color: var(--text-red);
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 59, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-green) 0%, #2d5a47 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url('./resources/calendar-activities.svg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(1px);
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .calendar-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 3rem;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .calendar-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-green);
+        }
+        
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .calendar-nav-btn {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-nav-btn:hover {
+            background: var(--accent-gold);
+            transform: translateY(-2px);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .calendar-day-header {
+            background: var(--primary-green);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .calendar-day {
+            background: white;
+            min-height: 120px;
+            padding: 0.75rem;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-day:hover {
+            background: var(--bg-cream);
+        }
+        
+        .calendar-day.other-month {
+            background: #f9fafb;
+            color: #9ca3af;
+        }
+        
+        .calendar-day.today {
+            background: rgba(184, 134, 11, 0.1);
+            border: 2px solid var(--accent-gold);
+        }
+        
+        .calendar-day-number {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .calendar-event {
+            background: var(--accent-gold);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .calendar-event:hover {
+            background: var(--text-red);
+            transform: translateY(-1px);
+        }
+        
+        .calendar-event.workshop {
+            background: #059669;
+        }
+        
+        .calendar-event.exhibition {
+            background: #7c3aed;
+        }
+        
+        .calendar-event.conference {
+            background: #dc2626;
+        }
+        
+        .calendar-event.cultural {
+            background: var(--accent-gold);
+        }
+        
+        .events-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .event-card:hover .event-image {
+            transform: scale(1.05);
+        }
+        
+        .event-content {
+            padding: 2rem;
+        }
+        
+        .event-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .event-type.workshop {
+            background: rgba(5, 150, 105, 0.1);
+            color: #059669;
+        }
+        
+        .event-type.exhibition {
+            background: rgba(124, 58, 237, 0.1);
+            color: #7c3aed;
+        }
+        
+        .event-type.conference {
+            background: rgba(220, 38, 38, 0.1);
+            color: #dc2626;
+        }
+        
+        .event-type.cultural {
+            background: rgba(184, 134, 11, 0.1);
+            color: var(--accent-gold);
+        }
+        
+        .event-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        .event-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .event-detail {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .event-detail-icon {
+            color: var(--accent-gold);
+        }
+        
+        .event-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .event-btn {
+            flex: 1;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+        
+        .event-btn-primary {
+            background: var(--accent-gold);
+            color: white;
+        }
+        
+        .event-btn-primary:hover {
+            background: #9a7209;
+            transform: translateY(-2px);
+        }
+        
+        .event-btn-secondary {
+            background: transparent;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+        
+        .event-btn-secondary:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            margin: 2rem;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: var(--primary-green);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px 16px 0 0;
+            position: relative;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .modal-section {
+            margin-bottom: 2rem;
+        }
+        
+        .modal-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .modal-content-text {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .registration-form {
+            background: var(--bg-cream);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            background: white;
+            color: var(--text-dark);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-submit {
+            background: var(--accent-gold);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+        
+        .form-submit:hover {
+            background: #9a7209;
+            transform: translateY(-2px);
+        }
+        
+        .past-events {
+            background: white;
+            padding: 5rem 0;
+        }
+        
+        .past-events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .past-event-card {
+            background: var(--bg-cream);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .past-event-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .past-event-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .past-event-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+        
+        .past-event-date {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .past-event-participants {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .calendar-grid {
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 100px;
+                padding: 0.5rem;
+            }
+            
+            .events-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .modal-content {
+                margin: 1rem;
+                max-height: 95vh;
+            }
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo font-serif">燕云百业</a>
+            <ul class="nav-links">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="history.html">发展历程</a></li>
+                <li><a href="positions.html">职位介绍</a></li>
+                <li><a href="gallery.html">照片墙</a></li>
+                <li><a href="activities.html">活动预告</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="header-bg"></div>
+        <div class="header-content">
+            <h1 class="page-title font-serif">活动预告</h1>
+            <p class="page-subtitle">
+                参与丰富多彩的百业活动，体验传统工艺的魅力，拓展专业视野
+            </p>
+        </div>
+    </section>
+    
+    <!-- Calendar Section -->
+    <section class="section">
+        <div class="container">
+            <div class="calendar-container fade-in">
+                <div class="calendar-header">
+                    <h2 class="calendar-title font-serif">2024年12月活动日历</h2>
+                    <div class="calendar-nav">
+                        <button class="calendar-nav-btn" onclick="previousMonth()">上月</button>
+                        <button class="calendar-nav-btn" onclick="nextMonth()">下月</button>
+                    </div>
+                </div>
+                
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be dynamically generated -->
+                </div>
+            </div>
+            
+            <!-- Upcoming Events -->
+            <div class="events-list" id="eventsList">
+                <!-- Events will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+    
+    <!-- Past Events Section -->
+    <section class="section past-events">
+        <div class="container">
+            <h2 class="section-title font-serif fade-in" style="text-align: center; color: var(--primary-green); margin-bottom: 3rem;">
+                往期活动回顾
+            </h2>
+            
+            <div class="past-events-grid">
+                <div class="past-event-card fade-in">
+                    <div class="past-event-icon">🏺</div>
+                    <h3 class="past-event-title">陶瓷工艺展示周</h3>
+                    <p class="past-event-date">2024年10月15-22日</p>
+                    <p class="past-event-participants">参与人数：120人</p>
+                </div>
+                
+                <div class="past-event-card fade-in">
+                    <div class="past-event-icon">🎭</div>
+                    <h3 class="past-event-title">传统戏曲文化节</h3>
+                    <p class="past-event-date">2024年9月28日</p>
+                    <p class="past-event-participants">参与人数：300人</p>
+                </div>
+                
+                <div class="past-event-card fade-in">
+                    <div class="past-event-icon">🍵</div>
+                    <h3 class="past-event-title">茶艺文化交流会</h3>
+                    <p class="past-event-date">2024年9月15日</p>
+                    <p class="past-event-participants">参与人数：80人</p>
+                </div>
+                
+                <div class="past-event-card fade-in">
+                    <div class="past-event-icon">🔨</div>
+                    <h3 class="past-event-title">手工艺技能大赛</h3>
+                    <p class="past-event-date">2024年8月20日</p>
+                    <p class="past-event-participants">参与人数：150人</p>
+                </div>
+                
+                <div class="past-event-card fade-in">
+                    <div class="past-event-icon">📚</div>
+                    <h3 class="past-event-title">传统文化讲座</h3>
+                    <p class="past-event-date">2024年8月5日</p>
+                    <p class="past-event-participants">参与人数：200人</p>
+                </div>
+                
+                <div class="past-event-card fade-in">
+                    <div class="past-event-icon">🎨</div>
+                    <h3 class="past-event-title">民间艺术展览</h3>
+                    <p class="past-event-date">2024年7月18日</p>
+                    <p class="past-event-participants">参与人数：250人</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Event Detail Modal -->
+    <div class="modal" id="eventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <h2 id="modalTitle">活动详情</h2>
+                <p id="modalType" style="opacity: 0.8; margin-top: 0.5rem;"></p>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Modal content will be dynamically generated -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer" style="background: var(--primary-green); color: white; padding: 3rem 0 2rem; text-align: center;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1rem;">燕云十六声百业组织</div>
+            <p style="max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; opacity: 0.9;">
+                传承千年工艺文化，连接古今智慧，为现代百业发展注入传统文化的精髓，
+                让古老的技艺在新时代焕发光彩。
+            </p>
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 2rem; margin-top: 2rem; opacity: 0.7;">
+                <p>&copy; 2024 燕云十六声百业组织. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Events data
+        const eventsData = [
+            {
+                id: 1,
+                title: "传统工艺展示周",
+                type: "exhibition",
+                date: "2024-12-15",
+                time: "09:00-17:00",
+                location: "北京国际展览中心",
+                description: "为期一周的传统工艺展示活动，汇集全国各地的手工艺大师，展示包括陶瓷、织绣、木工、金属工艺等在内的多种传统技艺。",
+                image: "./resources/activities-gallery.png",
+                organizer: "燕云十六声百业组织",
+                contact: "010-12345678",
+                registrationDeadline: "2024-12-10",
+                maxParticipants: 500,
+                currentParticipants: 120,
+                requirements: ["对传统工艺感兴趣", "遵守展览规定", "爱护展品"],
+                agenda: [
+                    "09:00-09:30 开幕式",
+                    "09:30-12:00 工艺展示",
+                    "12:00-13:30 午餐时间",
+                    "13:30-17:00 互动体验"
+                ]
+            },
+            {
+                id: 2,
+                title: "茶艺文化交流会",
+                type: "cultural",
+                date: "2024-12-08",
+                time: "14:00-17:00",
+                location: "杭州西湖茶文化中心",
+                description: "深入了解中国茶文化，学习传统茶艺技法，品尝各地名茶，体验茶道精神。",
+                image: "./resources/activities-gallery.png",
+                organizer: "茶行业协会",
+                contact: "0571-87654321",
+                registrationDeadline: "2024-12-05",
+                maxParticipants: 80,
+                currentParticipants: 45,
+                requirements: ["对茶文化感兴趣", "着正装出席", "保持安静"],
+                agenda: [
+                    "14:00-14:30 茶文化讲座",
+                    "14:30-15:30 茶艺表演",
+                    "15:30-16:30 品茶交流",
+                    "16:30-17:00 总结分享"
+                ]
+            },
+            {
+                id: 3,
+                title: "陶瓷制作技艺培训",
+                type: "workshop",
+                date: "2024-12-12",
+                time: "10:00-16:00",
+                location: "景德镇陶瓷学院",
+                description: "专业陶瓷制作技能培训，从基础技法到高级工艺，由资深陶艺大师亲自指导。",
+                image: "./resources/activities-gallery.png",
+                organizer: "陶瓷工艺协会",
+                contact: "0798-1234567",
+                registrationDeadline: "2024-12-08",
+                maxParticipants: 30,
+                currentParticipants: 18,
+                requirements: ["年满18岁", "有基础动手能力", "遵守安全规定"],
+                agenda: [
+                    "10:00-10:30 理论讲解",
+                    "10:30-12:00 实践操作",
+                    "12:00-13:00 午餐休息",
+                    "13:00-16:00 深度练习"
+                ]
+            },
+            {
+                id: 4,
+                title: "中医药文化论坛",
+                type: "conference",
+                date: "2024-12-20",
+                time: "09:00-17:00",
+                location: "上海国际会议中心",
+                description: "中医药文化传承与发展高峰论坛，邀请知名专家学者分享中医药文化的现代价值。",
+                image: "./resources/activities-gallery.png",
+                organizer: "中医药文化研究会",
+                contact: "021-65432109",
+                registrationDeadline: "2024-12-15",
+                maxParticipants: 200,
+                currentParticipants: 85,
+                requirements: ["相关专业背景或兴趣", "提交参会申请", "遵守会议纪律"],
+                agenda: [
+                    "09:00-09:30 开幕式",
+                    "09:30-12:00 主题报告",
+                    "12:00-13:30 午餐时间",
+                    "13:30-17:00 分组讨论"
+                ]
+            },
+            {
+                id: 5,
+                title: "传统戏曲表演",
+                type: "cultural",
+                date: "2024-12-25",
+                time: "19:30-21:30",
+                location: "国家大剧院",
+                description: "传统戏曲精品剧目展演，汇集京剧、昆曲、越剧等经典剧目，展现中华戏曲艺术魅力。",
+                image: "./resources/activities-gallery.png",
+                organizer: "戏曲艺术研究院",
+                contact: "010-88888888",
+                registrationDeadline: "2024-12-20",
+                maxParticipants: 1000,
+                currentParticipants: 350,
+                requirements: ["热爱传统戏曲", "按时入场", "保持安静"],
+                agenda: [
+                    "19:30-19:45 开场介绍",
+                    "19:45-21:15 剧目表演",
+                    "21:15-21:30 互动环节"
+                ]
+            },
+            {
+                id: 6,
+                title: "木雕工艺体验课",
+                type: "workshop",
+                date: "2024-12-18",
+                time: "14:00-18:00",
+                location: "东阳木雕博物馆",
+                description: "亲身体验传统木雕工艺，学习基本雕刻技法，创作属于自己的木雕作品。",
+                image: "./resources/activities-gallery.png",
+                organizer: "木雕工艺协会",
+                contact: "0579-1234567",
+                registrationDeadline: "2024-12-14",
+                maxParticipants: 25,
+                currentParticipants: 12,
+                requirements: ["年满16岁", "有艺术兴趣", "注意安全"],
+                agenda: [
+                    "14:00-14:30 安全培训",
+                    "14:30-15:30 技法讲解",
+                    "15:30-18:00 实践创作"
+                ]
+            }
+        ];
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCalendar();
+            renderEvents();
+            initScrollAnimations();
+        });
+        
+        // Generate calendar
+        function generateCalendar() {
+            const grid = document.getElementById('calendarGrid');
+            const today = new Date();
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            // Clear existing calendar
+            grid.innerHTML = '';
+            
+            // Add day headers
+            const dayHeaders = ['日', '一', '二', '三', '四', '五', '六'];
+            dayHeaders.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+            
+            // Get first day of month and number of days
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
+            
+            // Add previous month's trailing days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const day = document.createElement('div');
+                day.className = 'calendar-day other-month';
+                day.innerHTML = `<div class="calendar-day-number">${daysInPrevMonth - i}</div>`;
+                grid.appendChild(day);
+            }
+            
+            // Add current month's days
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                
+                // Check if it's today
+                if (day === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear()) {
+                    dayElement.classList.add('today');
+                }
+                
+                dayElement.innerHTML = `<div class="calendar-day-number">${day}</div>`;
+                
+                // Add events for this day
+                const dayEvents = eventsData.filter(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate.getDate() === day && 
+                           eventDate.getMonth() === currentMonth && 
+                           eventDate.getFullYear() === currentYear;
+                });
+                
+                dayEvents.forEach(event => {
+                    const eventElement = document.createElement('div');
+                    eventElement.className = `calendar-event ${event.type}`;
+                    eventElement.textContent = event.title;
+                    eventElement.onclick = (e) => {
+                        e.stopPropagation();
+                        showEventDetail(event);
+                    };
+                    dayElement.appendChild(eventElement);
+                });
+                
+                grid.appendChild(dayElement);
+            }
+            
+            // Add next month's leading days
+            const totalCells = grid.children.length - 7; // Subtract headers
+            const remainingCells = 42 - totalCells; // 6 rows * 7 days - headers
+            for (let day = 1; day <= remainingCells; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day other-month';
+                dayElement.innerHTML = `<div class="calendar-day-number">${day}</div>`;
+                grid.appendChild(dayElement);
+            }
+        }
+        
+        // Render events
+        function renderEvents() {
+            const eventsList = document.getElementById('eventsList');
+            eventsList.innerHTML = '';
+            
+            eventsData.forEach((event, index) => {
+                const eventCard = createEventCard(event);
+                eventCard.style.animationDelay = `${index * 0.1}s`;
+                eventsList.appendChild(eventCard);
+            });
+        }
+        
+        // Create event card
+        function createEventCard(event) {
+            const card = document.createElement('div');
+            card.className = 'event-card fade-in';
+            card.onclick = () => showEventDetail(event);
+            
+            const typeText = {
+                'workshop': '技能培训',
+                'exhibition': '展览展示',
+                'conference': '论坛会议',
+                'cultural': '文化交流'
+            };
+            
+            const registrationStatus = event.currentParticipants >= event.maxParticipants ? 
+                '<span style="color: #dc2626;">已满员</span>' : 
+                `已报名：${event.currentParticipants}/${event.maxParticipants}人`;
+            
+            card.innerHTML = `
+                <img class="event-image" src="${event.image}" alt="${event.title}">
+                <div class="event-content">
+                    <span class="event-type ${event.type}">${typeText[event.type]}</span>
+                    <h3 class="event-title">${event.title}</h3>
+                    <p class="event-description">${event.description}</p>
+                    
+                    <div class="event-details">
+                        <div class="event-detail">
+                            <span class="event-detail-icon">📅</span>
+                            <span>${event.date}</span>
+                        </div>
+                        <div class="event-detail">
+                            <span class="event-detail-icon">⏰</span>
+                            <span>${event.time}</span>
+                        </div>
+                        <div class="event-detail">
+                            <span class="event-detail-icon">📍</span>
+                            <span>${event.location}</span>
+                        </div>
+                        <div class="event-detail">
+                            <span class="event-detail-icon">👥</span>
+                            <span>${registrationStatus}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="event-actions">
+                        <button class="event-btn event-btn-primary" onclick="showRegistrationForm(${event.id})">
+                            立即报名
+                        </button>
+                        <button class="event-btn event-btn-secondary" onclick="showEventDetail(${JSON.stringify(event).replace(/"/g, '&quot;')})">
+                            查看详情
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Show event detail
+        function showEventDetail(event) {
+            const modal = document.getElementById('eventModal');
+            const title = document.getElementById('modalTitle');
+            const type = document.getElementById('modalType');
+            const body = document.getElementById('modalBody');
+            
+            const typeText = {
+                'workshop': '技能培训',
+                'exhibition': '展览展示',
+                'conference': '论坛会议',
+                'cultural': '文化交流'
+            };
+            
+            title.textContent = event.title;
+            type.textContent = typeText[event.type];
+            
+            body.innerHTML = `
+                <div class="modal-section">
+                    <h3 class="modal-title">📋 活动详情</h3>
+                    <div class="modal-content-text">${event.description}</div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-title">📅 活动安排</h3>
+                    <div class="modal-content-text">
+                        <p><strong>日期：</strong>${event.date}</p>
+                        <p><strong>时间：</strong>${event.time}</p>
+                        <p><strong>地点：</strong>${event.location}</p>
+                        <p><strong>主办方：</strong>${event.organizer}</p>
+                        <p><strong>联系方式：</strong>${event.contact}</p>
+                    </div>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-title">📋 参与要求</h3>
+                    <ul class="detail-list">
+                        ${event.requirements.map(req => `<li>${req}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-title">📋 活动流程</h3>
+                    <ul class="detail-list">
+                        ${event.agenda.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                </div>
+                
+                <div class="modal-section">
+                    <h3 class="modal-title">📊 报名情况</h3>
+                    <div class="modal-content-text">
+                        <p>报名截止日期：${event.registrationDeadline}</p>
+                        <p>最大参与人数：${event.maxParticipants}人</p>
+                        <p>当前报名人数：${event.currentParticipants}人</p>
+                        <p>剩余名额：${event.maxParticipants - event.currentParticipants}人</p>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        // Show registration form
+        function showRegistrationForm(eventId) {
+            const event = eventsData.find(e => e.id === eventId);
+            if (!event) return;
+            
+            const modal = document.getElementById('eventModal');
+            const title = document.getElementById('modalTitle');
+            const type = document.getElementById('modalType');
+            const body = document.getElementById('modalBody');
+            
+            title.textContent = `报名参加活动：${event.title}`;
+            type.textContent = '活动报名';
+            
+            body.innerHTML = `
+                <div class="registration-form">
+                    <h3 class="modal-title">📝 报名信息</h3>
+                    <form onsubmit="submitRegistration(event, ${eventId})">
+                        <div class="form-group">
+                            <label class="form-label">姓名 *</label>
+                            <input type="text" class="form-input" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">联系电话 *</label>
+                            <input type="tel" class="form-input" name="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">邮箱地址</label>
+                            <input type="email" class="form-input" name="email">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">职业/行业</label>
+                            <input type="text" class="form-input" name="profession">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">参与经验</label>
+                            <textarea class="form-input form-textarea" name="experience" placeholder="请简要描述您参与类似活动的经验（如有）"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">特殊需求</label>
+                            <textarea class="form-input form-textarea" name="specialNeeds" placeholder="如有特殊饮食要求、无障碍需求等，请在此说明"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="form-submit">确认报名</button>
+                    </form>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        // Submit registration
+        function submitRegistration(event, eventId) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const registrationData = Object.fromEntries(formData.entries());
+            
+            // Simulate registration process
+            alert('报名成功！我们将在24小时内与您联系确认参会详情。');
+            
+            // Update event participant count
+            const eventIndex = eventsData.findIndex(e => e.id === eventId);
+            if (eventIndex !== -1 && eventsData[eventIndex].currentParticipants < eventsData[eventIndex].maxParticipants) {
+                eventsData[eventIndex].currentParticipants++;
+                renderEvents();
+            }
+            
+            closeModal();
+        }
+        
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('eventModal');
+            modal.classList.remove('active');
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('eventModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+        
+        // Calendar navigation
+        function previousMonth() {
+            alert('功能开发中，敬请期待！');
+        }
+        
+        function nextMonth() {
+            alert('功能开发中，敬请期待！');
+        }
+        
+        // Scroll animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+    </script>
+</body>
+</html>
