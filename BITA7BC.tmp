@@ -585,7 +585,7 @@
             
             <div class="figures-grid">
                 <div class="figure-card fade-in">
-                    <img class="figure-avatar" src="resources/avatar-situmuxi-new.svg" alt="司徒慕兮">
+                    <img class="figure-avatar" src="./resources/avatar-banzanshi.svg" alt="司徒慕兮">
                     <h3 class="figure-name">司徒慕兮</h3>
                     <p class="figure-title">劳模</p>
                     <p class="figure-story">
@@ -595,7 +595,7 @@
                 </div>
                 
                 <div class="figure-card fade-in">
-                    <img class="figure-avatar" src="resources/avatar-muxixuan-new.svg" alt="穆兮玄">
+                    <img class="figure-avatar" src="./resources/avatar-xiaolinqin.svg" alt="穆兮玄">
                     <h3 class="figure-name">穆兮玄</h3>
                     <p class="figure-title">劳模</p>
                     <p class="figure-story">
@@ -605,7 +605,7 @@
                 </div>
                 
                 <div class="figure-card fade-in">
-                    <img class="figure-avatar" src="resources/avatar-shangguanchenxiang-new.svg" alt="上官晨湘">
+                    <img class="figure-avatar" src="./resources/avatar-yaotangling.svg" alt="上官晨湘">
                     <h3 class="figure-name">上官晨湘</h3>
                     <p class="figure-title">劳模</p>
                     <p class="figure-story">
@@ -615,7 +615,7 @@
                 </div>
                 
                 <div class="figure-card fade-in">
-                    <img class="figure-avatar" src="resources/avatar-lingjiyue-new.svg" alt="凌霁月">
+                    <img class="figure-avatar" src="./resources/avatar-lingjiyue.svg" alt="凌霁月">
                     <h3 class="figure-name">凌霁月</h3>
                     <p class="figure-title">社长</p>
                     <p class="figure-story">

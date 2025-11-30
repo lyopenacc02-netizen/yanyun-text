@@ -598,62 +598,46 @@
         </div>
     </section>
     
-    <!-- Filter Section -->
+    <!-- 画廊内容 -->
     <section class="section">
         <div class="container">
-            <div class="filter-section fade-in">
-                <h2 class="filter-title">筛选条件</h2>
-                <div class="filter-grid">
-                    <div class="filter-group">
-                        <label class="filter-label">行业分类</label>
-                        <select class="filter-select" id="categoryFilter">
-                            <option value="">全部分类</option>
-                            <option value="crafts">手工艺制作</option>
-                            <option value="commerce">商业贸易</option>
-                            <option value="food">餐饮服务</option>
-                            <option value="medicine">医药卫生</option>
-                            <option value="arts">文化艺术</option>
-                            <option value="activities">文化活动</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label class="filter-label">拍摄时期</label>
-                        <select class="filter-select" id="periodFilter">
-                            <option value="">全部时期</option>
-                            <option value="ancient">古代传统</option>
-                            <option value="modern">现代工艺</option>
-                            <option value="contemporary">当代创新</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label class="filter-label">拍摄地区</label>
-                        <select class="filter-select" id="regionFilter">
-                            <option value="">全部地区</option>
-                            <option value="north">华北地区</option>
-                            <option value="south">华南地区</option>
-                            <option value="east">华东地区</option>
-                            <option value="west">华西地区</option>
-                            <option value="central">华中地区</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label class="filter-label">照片类型</label>
-                        <select class="filter-select" id="typeFilter">
-                            <option value="">全部类型</option>
-                            <option value="process">工艺流程</option>
-                            <option value="product">产品展示</option>
-                            <option value="people">人物风采</option>
-                            <option value="event">活动记录</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Gallery Grid -->
             <div class="gallery-container">
+                <!-- 作者筛选控件 -->
+                <div class="filter-controls" style="margin-bottom: 2rem; text-align: center;">
+                    <label for="authorFilter" style="margin-right: 0.5rem; font-weight: 500;">作者筛选:</label>
+                    <select id="authorFilter" style="padding: 0.5rem 1rem; border-radius: 4px; border: 1px solid #ccc; margin-right: 1rem; background: white;">
+                        <option value="all">全部作者</option>
+                        <option value="姚叹凌">姚叹凌</option>
+                        <!-- 后期可以动态添加更多作者选项 -->
+                    </select>
+                    <button id="filterButton" style="padding: 0.5rem 1.5rem; background: var(--primary-green); color: white; border: none; border-radius: 4px; cursor: pointer; transition: background 0.3s;">筛选</button>
+                </div>
+                
                 <div class="gallery-grid" id="galleryGrid">
                     <!-- Gallery items will be dynamically generated -->
                 </div>
+                
+                <style>
+                    /* 确保筛选后的照片项目正确显示 */
+                    .gallery-item {
+                        display: block;
+                        opacity: 1;
+                        visibility: visible;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .gallery-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                        gap: 2rem;
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .gallery-grid {
+                            grid-template-columns: 1fr;
+                        }
+                    }
+                </style>
             </div>
         </div>
     </section>
@@ -678,20 +662,20 @@
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item fade-in">
-                    <div class="stat-number" data-count="1200">0</div>
+                    <div class="stat-number" data-count="365">0</div>
                     <div class="stat-label">历史照片</div>
                 </div>
                 <div class="stat-item fade-in">
-                    <div class="stat-number" data-count="36">0</div>
-                    <div class="stat-label">行业分类</div>
+                    <div class="stat-number" data-count="3">0</div>
+                    <div class="stat-label">活跃作者</div>
                 </div>
                 <div class="stat-item fade-in">
-                    <div class="stat-number" data-count="150">0</div>
+                    <div class="stat-number" data-count="100">0</div>
                     <div class="stat-label">拍摄地区</div>
                 </div>
                 <div class="stat-item fade-in">
-                    <div class="stat-number" data-count="800">0</div>
-                    <div class="stat-label">年跨度</div>
+                    <div class="stat-number" data-count="24">0</div>
+                    <div class="stat-label">出镜人数</div>
                 </div>
             </div>
         </div>
@@ -712,13 +696,13 @@
     <!-- Footer -->
     <footer class="footer" style="background: var(--primary-green); color: white; padding: 3rem 0 2rem; text-align: center;">
         <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1rem;">燕云十六声百业组织</div>
+            <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-gold); margin-bottom: 1rem;">燕云十六声 漱月</div>
             <p style="max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; opacity: 0.9;">
-                传承千年工艺文化，连接古今智慧，为现代百业发展注入传统文化的精髓，
-                让古老的技艺在新时代焕发光彩。
+                为百业发展注入互联网的精髓，
+                让每个人都可以克服社恐，找到自己最好的伙伴。
             </p>
             <div style="border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 2rem; margin-top: 2rem; opacity: 0.7;">
-                <p>&copy; 2024 燕云十六声百业组织. 保留所有权利.</p>
+                <p>&copy; 2025 燕云十六声 漱月. 保留所有权利.</p>
             </div>
         </div>
     </footer>
@@ -726,146 +710,167 @@
     <script>
         // Gallery data
         const galleryData = [
+            // 为每个项目添加author字段，默认为"姚叹凌"
             {
+                author: "姚叹凌",
                 id: 1,
-                title: "陶瓷制作工艺",
-                category: "crafts",
+                title: "情境分享",
                 period: "ancient",
-                region: "south",
-                type: "process",
-                image: "https://kimi-web-img.moonshot.cn/img/gd-hbimg.huaban.com/f7f2c533807d86730a8160d8d5c6416e97d626ee",
-                description: "展示传统陶瓷制作的完整工艺流程，从原料选择到成型烧制。",
-                tags: ["陶瓷", "传统工艺", "手工制作"],
+                region: "qinchuan",
+                image: "./resources/photo/craft-ceramic-1.jpg",
+                description: "动态情境真的很有氛围。",
+                tags: ["动态", "伞", "灯光"],
                 date: "2024-11-15",
-                location: "江西景德镇"
+                location: "情境"
             },
             {
+                author: "姚叹凌",
                 id: 2,
-                title: "丝绸织造现场",
-                category: "crafts",
+                title: "故事的小黄花",
                 period: "modern",
-                region: "east",
-                type: "process",
-                image: "https://kimi-web-img.moonshot.cn/img/5b0988e595225.cdn.sohucs.com/e9321814c858b38edd87c87f75bb1233216ad807.jpeg",
-                description: "现代丝绸织造车间的工作场景，展现传统技艺与现代技术的结合。",
-                tags: ["丝绸", "织造", "现代工艺"],
+                region: "qinghe",
+                image: "./resources/photo/craft-silk-1.jpg",
+                description: "随手一拍就很出片。",
+                tags: ["方外地", "家业", "影棚"],
                 date: "2024-11-10",
-                location: "江苏苏州"
+                location: "方外地"
             },
             {
+                author: "姚叹凌",
                 id: 3,
-                title: "茶艺表演",
-                category: "arts",
+                title: "秦川白昼",
                 period: "contemporary",
-                region: "south",
-                type: "event",
-                image: "https://kimi-web-img.moonshot.cn/img/pic.vjshi.com/e7b7965d3da2c06d3fa0df9f2f028f1a0c779b59.jpg",
-                description: "传统茶艺表演活动，展示中国茶文化的优雅与精致。",
-                tags: ["茶艺", "表演", "文化活动"],
+                region: "hexi",
+                image: "./resources/photo/tea-ceremony-1.jpg",
+                description: "白天也有萤火虫呦。",
+                tags: ["凌霁月", "诸星渊", "半盏诗"],
                 date: "2024-11-08",
-                location: "福建武夷山"
+                location: "秦川"
             },
             {
+                author: "姚叹凌",
                 id: 4,
-                title: "中药炮制工艺",
-                category: "medicine",
+                title: "秦川萤火",
                 period: "ancient",
-                region: "central",
-                type: "process",
-                image: "https://kimi-web-img.moonshot.cn/img/i.guancha.cn/947fac357b30398c95b91f6cc63ee324a18525b3.jpg",
-                description: "传统中药炮制工艺展示，体现中医药文化的深厚底蕴。",
-                tags: ["中药", "炮制", "传统工艺"],
+                region: "kaifeng",
+                image: "./resources/photo/medicine-herb-1.jpg",
+                description: "灯光测试，服装测试，环境测试。",
+                tags: ["凌霁月", "诸星渊", "半盏诗"],
                 date: "2024-11-05",
-                location: "河南郑州"
+                location: "开秦川"
             },
             {
+                author: "姚叹凌",
                 id: 5,
-                title: "木雕工艺展示",
-                category: "crafts",
+                title: "秦川夜晚",
                 period: "ancient",
-                region: "east",
-                type: "product",
-                image: "https://kimi-web-img.moonshot.cn/img/pic.vjshi.com/740643a28acfc671a18dd3ab2f31a1c2dec6681f.jpg",
-                description: "精美的木雕工艺品展示，展现传统木雕技艺的精湛技术。",
-                tags: ["木雕", "工艺品", "传统技艺"],
+                region: "bujian",
+                image: "./resources/photo/craft-wood-1.jpg",
+                description: "好多萤火虫。",
+                tags: ["凌霁月", "诸星渊", "半盏诗"],
                 date: "2024-11-03",
-                location: "浙江东阳"
+                location: "秦川"
             },
             {
+                author: "姚叹凌",
                 id: 6,
-                title: "书法创作现场",
-                category: "arts",
+                title: "秦川随拍",
                 period: "contemporary",
-                region: "north",
-                type: "people",
-                image: "https://kimi-web-img.moonshot.cn/img/img.xinminweekly.com.cn/e0a5571f415dc434941663bbb7c5e6dae965726a.jpg",
-                description: "书法家现场创作，展现中国书法艺术的魅力和内涵。",
-                tags: ["书法", "创作", "艺术"],
+                region: "qinchuan",
+                image: "./resources/photo/calligraphy-1.jpg",
+                description: "专为出片而生。",
+                tags: ["凌霁月", "诸星渊", "半盏诗"],
                 date: "2024-11-01",
-                location: "北京"
+                location: "秦川"
             },
             {
+                author: "姚叹凌",
                 id: 7,
-                title: "传统美食制作",
-                category: "food",
+                title: "秦川四人组",
                 period: "modern",
-                region: "south",
-                type: "process",
-                image: "https://kimi-web-img.moonshot.cn/img/bucket-image.inkmaginecms.com/9f365b2b2b7650ca0e8180c87bfd5e763aa3d9ae.jpg",
-                description: "传统美食制作工艺展示，传承中华饮食文化的精髓。",
-                tags: ["美食", "传统工艺", "饮食文化"],
+                region: "hexi",
+                image: "./resources/photo/food-traditional-1.jpg",
+                description: "寻找秦川打卡地。",
+                tags: ["凌霁月", "诸星渊", "半盏诗"],
                 date: "2024-10-28",
-                location: "广东广州"
+                location: "秦川"
             },
             {
+                author: "姚叹凌",
                 id: 8,
-                title: "金属工艺制作",
-                category: "crafts",
+                title: "秦川-小船",
                 period: "modern",
-                region: "north",
-                type: "process",
-                image: "https://kimi-web-img.moonshot.cn/img/p3-pc-sign.douyinpic.com/be7ee5de5475c12747a9afe527ed3e1cb43646c4.webp",
-                description: "现代金属工艺制作过程，展现传统技艺与现代技术的完美融合。",
-                tags: ["金属工艺", "现代技术", "工艺创新"],
+                region: "kaifeng",
+                image: "./resources/photo/craft-metal-1.jpg",
+                description: "秦川开图后的跑图随拍。",
+                tags: ["秦川", "凌霁月", "诸星渊"],
                 date: "2024-10-25",
-                location: "河北唐山"
+                location: "秦川"
             },
             {
+                author: "姚叹凌",
                 id: 9,
-                title: "传统戏曲表演",
-                category: "arts",
+                title: "新外观测试",
                 period: "ancient",
-                region: "central",
-                type: "event",
-                image: "https://kimi-web-img.moonshot.cn/img/5b0988e595225.cdn.sohucs.com/968f02c69d391c0494b68e76cdac647aa444c757.jpeg",
-                description: "传统戏曲表演现场，展现中华戏曲艺术的独特魅力。",
-                tags: ["戏曲", "表演", "传统文化"],
+                region: "qinghe",
+                image: "./resources/photo/opera-1.jpg",
+                description: "新衣服上线第一拍",
+                tags: ["凉州", "凌霁月", "诸星渊"],
                 date: "2024-10-20",
-                location: "河南洛阳"
+                location: "凉州"
             },
             {
+                author: "姚叹凌",
                 id: 10,
-                title: "纺织工艺展示",
-                category: "crafts",
+                title: "百业合影试验",
                 period: "modern",
-                region: "east",
-                type: "process",
-                image: "https://kimi-web-img.moonshot.cn/img/bucket-image.inkmaginecms.com/08c3e6e46043c43aa33d39e0386af2b1e7c68e0e.jpg",
-                description: "现代纺织工艺展示，体现传统纺织技术的传承与发展。",
-                tags: ["纺织", "现代工艺", "技术传承"],
+                region: "bujian",
+                image: "./resources/photo/textile-1.jpg",
+                description: "尝试多人合影，测试地点人数，为正式合影做准备。",
+                tags: ["群像", "漱月", "合影"],
                 date: "2024-10-18",
-                location: "江苏无锡"
+                location: "百业驻地"
             }
         ];
         
-        // Initialize page
+        // 页面加载完成后执行初始化
         document.addEventListener('DOMContentLoaded', function() {
             renderGallery();
-            initFilters();
             initFeaturedCarousel();
             initScrollAnimations();
             initCounterAnimations();
+            initAuthorFilter();
         });
+        
+        // 初始化作者筛选功能
+        function initAuthorFilter() {
+            const filterButton = document.getElementById('filterButton');
+            const authorFilter = document.getElementById('authorFilter');
+            
+            filterButton.addEventListener('click', function() {
+                const selectedAuthor = authorFilter.value;
+                filterByAuthor(selectedAuthor);
+            });
+            
+            // 添加回车键触发筛选
+            authorFilter.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const selectedAuthor = authorFilter.value;
+                    filterByAuthor(selectedAuthor);
+                }
+            });
+        }
+        
+        // 根据作者筛选照片
+        function filterByAuthor(author) {
+            let filteredData = galleryData;
+            
+            if (author !== 'all') {
+                filteredData = galleryData.filter(item => item.author === author);
+            }
+            
+            renderGallery(filteredData);
+        }
         
         // Render gallery
         function renderGallery(filteredData = galleryData) {
@@ -885,63 +890,43 @@
             div.className = 'gallery-item';
             div.onclick = () => openLightbox(item);
             
+            // 生成tags HTML
+            const tagsHtml = item.tags && item.tags.length > 0 
+                ? `<div class="gallery-tags">
+                     ${item.tags.map(tag => `<span class="gallery-tag">${tag}</span>`).join('')}
+                   </div>` 
+                : '';
+            
             div.innerHTML = `
-                <img class="gallery-image" src="${item.image}" alt="${item.title}" loading="lazy">
-                <div class="gallery-content">
-                    <h3 class="gallery-title">${item.title}</h3>
-                    <p class="gallery-category">${getCategoryName(item.category)}</p>
-                    <p class="gallery-description">${item.description}</p>
-                    <div class="gallery-tags">
-                        ${item.tags.map(tag => `<span class="gallery-tag">${tag}</span>`).join('')}
-                    </div>
-                    <div class="gallery-footer">
-                        <span class="gallery-date">📅 ${item.date}</span>
-                        <span class="gallery-location">📍 ${item.location}</span>
-                    </div>
-                </div>
-            `;
+                 <img class="gallery-image" src="${item.image}" alt="${item.title}" loading="lazy">
+                 <div class="gallery-content">
+                     <h3 class="gallery-title">${item.title}</h3>
+                     <p class="gallery-category">${item.author || '姚叹凌'}</p>
+                     <p class="gallery-description">${item.description}</p>
+                     ${tagsHtml}
+                     <div class="gallery-footer">
+                         <span class="gallery-date">📅 ${item.date}</span>
+                         <span class="gallery-location">📍 ${item.location}</span>
+                     </div>
+                 </div>
+             `;
             
             return div;
         }
         
-        // Get category name
-        function getCategoryName(category) {
-            const categories = {
-                'crafts': '手工艺',
-                'commerce': '商业贸易',
-                'food': '餐饮服务',
-                'medicine': '医药卫生',
-                'arts': '文化艺术',
-                'activities': '文化活动'
+        // Get region name
+        function getRegionName(region) {
+            const regions = {
+                'qinghe': '清河',
+                'hexi': '河西',
+                'qinchuan': '秦川',
+                'bujian': '不见山',
+                'kaifeng': '开封'
             };
-            return categories[category] || category;
+            return regions[region] || region;
         }
         
-        // Initialize filters
-        function initFilters() {
-            const filters = ['categoryFilter', 'periodFilter', 'regionFilter', 'typeFilter'];
-            
-            filters.forEach(filterId => {
-                document.getElementById(filterId).addEventListener('change', applyFilters);
-            });
-        }
-        
-        // Apply filters
-        function applyFilters() {
-            const category = document.getElementById('categoryFilter').value;
-            const period = document.getElementById('periodFilter').value;
-            const region = document.getElementById('regionFilter').value;
-            const type = document.getElementById('typeFilter').value;
-            
-            let filteredData = galleryData.filter(item => {
-                return (!category || item.category === category) &&
-                       (!period || item.period === period) &&
-                       (!region || item.region === region) &&
-                       (!type || item.type === type);
-            });
-            
-            renderGallery(filteredData);
-        }
+        // 简化版画廊渲染，不再需要筛选功能
         
         // Initialize featured carousel
         function initFeaturedCarousel() {
